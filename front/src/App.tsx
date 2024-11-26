@@ -1,12 +1,23 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ProductsList from './components/ProductsList';
+import AddProduct from './components/AddProduct';
+import UpdateProduct from './components/UpdateProduct';
+import ProductDetails from './components/ProductDetails';
 
-export default  function App() {
-  return (
-    <div className="bg-neonPurple h-screen flex flex-col items-center justify-center">
-        <h1 className="text-neonGreen text-5xl font-bold">Bienvenue sur le site PokéGo</h1>
-        <p className="text-neonYellow text-xl mt-4">
-            Obtenez vos meilleurs pokémons ici !
-        </p>
-    </div>
-  );
-}
+const App: React.FC = () => {
+    return (
+        <Router>
+            <div className="bg-gray-100 min-h-screen p-6">
+                <Routes>
+                    <Route path="/" element={<ProductsList />} />
+                    <Route path="/add" element={<AddProduct />} />
+                    <Route path="/update/:id" element={<UpdateProduct />} />
+                    <Route path="/product/:id" element={<ProductDetails />} />
+                </Routes>
+            </div>
+        </Router>
+    );
+};
+
+export default App;
