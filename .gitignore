@@ -1,0 +1,7 @@
+.idea/
+front/.idea/
+front/node_modules
+back/venv/
+back/eshop/__pycache__/
+back/product/__pychache__/
+data/db.sqlite3
