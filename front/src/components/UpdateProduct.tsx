@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import API from '../interceptor/api';
+
 const UpdateProduct: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [formData, setFormData] = useState({
@@ -37,6 +38,15 @@ const UpdateProduct: React.FC = () => {
             navigate('/');
         } catch (error) {
             console.error('Error updating product:', error);
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            await API.delete(`products/${id}/delete/`);
+            navigate('/');
+        } catch (error) {
+            console.error('Error deleting product:', error);
         }
     };
 
@@ -97,12 +107,21 @@ const UpdateProduct: React.FC = () => {
                     onChange={handleChange}
                     className="border rounded-lg p-2"
                 />
-                <button
-                    type="submit"
-                    className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
-                >
-                    Update Product
-                </button>
+                <div className="flex justify-between">
+                    <button
+                        type="submit"
+                        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+                    >
+                        Update Product
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleDelete}
+                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                    >
+                        Delete Product
+                    </button>
+                </div>
             </div>
         </form>
     );

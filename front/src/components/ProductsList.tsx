@@ -1,4 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import API from '../interceptor/api';
 import { Product, Filters } from '../type';
 
@@ -10,6 +11,7 @@ const ProductsList: React.FC = () => {
         min_price: undefined,
         max_price: undefined,
     });
+    const navigate = useNavigate();
 
     const fetchProducts = async () => {
         try {
@@ -82,18 +84,25 @@ const ProductsList: React.FC = () => {
                 </div>
             </div>
 
+            {/* Bouton d'ajout de produit */}
+            <div className="mb-6 text-right">
+                <button
+                    onClick={() => navigate('/add')}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+                >
+                    Add Product
+                </button>
+            </div>
+
             {/* Liste des produits */}
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {products.map((product) => (
-                    <div
-                        key={product.id}
-                        className="bg-white rounded-lg shadow-md p-4 border hover:shadow-lg transition"
-                    >
+                    <Link to={`/product/${product.id}`} key={product.id} className="bg-white rounded-lg shadow-md p-4 border hover:shadow-lg transition">
                         <h3 className="text-lg font-semibold text-gray-800 mb-2">{product.name}</h3>
                         <p className="text-gray-600 mb-2">{product.description}</p>
                         <p className="text-blue-600 font-bold mb-2">Price: ${parseFloat(product.price as unknown as string).toFixed(2)}</p>
                         <p className="text-sm text-gray-500">Category: {product.category}</p>
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>
